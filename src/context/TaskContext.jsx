@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const TaskContext = createContext()
 
-const API_BASE = 'http://localhost:8000' // Change this for production if needed
+const API_BASE = 'https://study-scheduler-backend.onrender.com' // Change this for production if needed
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([])
@@ -35,7 +35,7 @@ const addTask = async (task) => {
 }
 const editTask = async (taskId, updatedFields) => {
   try {
-    const response = await axios.put(`http://localhost:8000/tasks/${taskId}`, updatedFields);
+    const response = await axios.put(`${API_BASE}/tasks/${taskId}`, updatedFields);
     setTasks((prev) =>
       prev.map((task) =>
         task.id === taskId ? { ...task, ...updatedFields } : task
@@ -77,7 +77,7 @@ const editTask = async (taskId, updatedFields) => {
 
 const getRecommendations = async (title) => {
   try {
-    const res = await axios.post('http://localhost:8000/recommend', {
+    const res = await axios.post(`${API_BASE}/recommend`, {
       new_title: title   // 👈 Send as object with field 'new_title'
     });
     return res.data.recommendations;
